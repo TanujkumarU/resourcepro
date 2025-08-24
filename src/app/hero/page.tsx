@@ -59,6 +59,14 @@ export default function Hero() {
   return (
     <section className={styles.hero}>
       <div className={styles.overlay}>
+      {/* Company logo or image */}
+      <Image
+        src="/mega.png"  // Replace with your image path in /public
+        alt="ResourcePro Logo"
+        width={120}
+        height={120}
+        className={styles.heroLogo}
+      />
         <h1>Welcome to ResourcePro</h1>
         <p>
           We are celebrating our 16-time recognition as the fastest-growing
