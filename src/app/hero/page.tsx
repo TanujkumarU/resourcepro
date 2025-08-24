@@ -71,6 +71,25 @@ export default function Hero() {
        
     <h1>Welcome to ResourcePro</h1>
 
+    <input
+          type="text"
+          placeholder="Filter members by name..."
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        />
+
+        <ul className={styles.membersList}>
+          {filteredMembers.map((member) => (
+            <li
+              key={member.id}
+              className={styles.memberItem}
+              onClick={() => handleOpenPopup(member)}
+            >
+              {member.name}
+            </li>
+          ))}
+        </ul>
+
 {/* Extended Description */}
 <p>
   We are excited to announce a special training programme in Pondicherry from Oct 1 to Oct 7. 
@@ -109,24 +128,7 @@ export default function Hero() {
   Join us in Pondicherry and be part of a transformative journey with ResourcePro!
 </p>
 
-        <input
-          type="text"
-          placeholder="Filter members by name..."
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-        />
-
-        <ul className={styles.membersList}>
-          {filteredMembers.map((member) => (
-            <li
-              key={member.id}
-              className={styles.memberItem}
-              onClick={() => handleOpenPopup(member)}
-            >
-              {member.name}
-            </li>
-          ))}
-        </ul>
+      
 
         {selectedMember && (
           <div className={styles.popup}>
