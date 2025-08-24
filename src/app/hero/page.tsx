@@ -2,6 +2,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import styles from "./Hero.module.scss";
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+
 
 // 1️⃣ Define TypeScript interface
 interface Member {

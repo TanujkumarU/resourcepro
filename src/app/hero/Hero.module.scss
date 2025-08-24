@@ -1,6 +1,12 @@
+.body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
 .hero {
   width: 100%;
-  height: 1700px; 
+  height: 1500px; 
   background: url("/bg.png") no-repeat center center/cover;
   display: flex;
   align-items: center;
@@ -22,7 +28,7 @@
   }
 
   p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 1.5rem;
   }
 
@@ -305,3 +311,30 @@
   object-fit: contain;
 }
 
+/* Apply Geist Sans as primary font and Geist Mono where needed */
+.hero, .overlay {
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+/* Headings */
+.overlay h1, .popupContent h2 {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-weight: 600;
+}
+
+/* Paragraphs */
+.overlay p, .popupContent p {
+  font-family: var(--font-geist-sans), sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Buttons and Inputs */
+.overlay input, .overlay button, .popupContent button {
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+/* Optional: use Geist Mono for special elements like code or IDs */
+.referralCode {
+  font-family: var(--font-geist-mono), monospace;
+}
