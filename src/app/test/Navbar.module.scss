@@ -1,0 +1,114 @@
+/* ---------------- Base Navbar (desktop) ---------------- */
+.navbar {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 2rem;
+  background-color: #07235d; // dark blue background
+  color: white;
+  font-family: Arial, sans-serif;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    img {
+      height: 60px;
+      width: auto;
+    }
+
+    span {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+  }
+
+  .links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+
+    li {
+      a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.2rem;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: #00aaff; // hover accent
+        }
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+
+    .signIn {
+      display: flex;
+      align-items: center;   /* 👈 keeps icon + text aligned horizontally */
+      gap: 0.4rem;
+    }
+  }
+}
+
+/* ---------------- Responsive (mobile) ---------------- */
+@media (max-width: 768px) {
+  .navbar {
+    position: relative;
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+
+    .links {
+      flex-direction: column;
+      width: 100%;
+      gap: 1rem;
+      margin-top: 1rem;
+      display: none; // hidden until menuOpen
+    }
+
+    .actions {
+      margin-top: 1rem;
+      width: 100%;
+      justify-content: flex-start; /* 👈 keep row layout */
+      flex-direction: row;         /* 👈 prevents vertical stacking */
+      gap: 1rem;
+
+      .signIn {
+        display: flex;
+        flex-direction: row;       /* 👈 icon left, text right */
+        align-items: center;
+      }
+    }
+  }
+
+  /* Mobile hamburger in top-right */
+  .hamburger {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: white;
+    display: block;
+  }
+
+  /* Show links when active */
+  .mobileMenuActive {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
+}
