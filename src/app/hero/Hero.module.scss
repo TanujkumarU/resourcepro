@@ -6,7 +6,7 @@
 
 .hero {
   width: 100%;
-  height: 1500px; 
+  height: 1500px;
   background: url("/bg.png") no-repeat center center/cover;
   display: flex;
   align-items: center;
@@ -58,17 +58,15 @@
   .membersList {
     list-style: none;
     padding: 0;
-    max-height: 250px; // keep scrolling
-    overflow-y: auto;  // scrolling still works
+    max-height: 250px;
+    overflow-y: auto;
     margin-bottom: 20px;
 
-    /* Hide scrollbar for Webkit browsers (Chrome, Safari, Edge) */
     &::-webkit-scrollbar {
       width: 0px;
       background: transparent;
     }
 
-    /* Hide scrollbar for Firefox */
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
   }
@@ -85,142 +83,16 @@
       background: rgba(255, 255, 255, 0.3);
     }
   }
-
-  .popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(21, 19, 19, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-
-    .popupContent {
-      background: rgb(16, 16, 18);
-      color: rgb(255, 255, 255);
-      padding: 25px;
-      border-radius: 12px;
-      width: 420px;
-      text-align: center;
-      position: relative;
-
-      h2 {
-        color: white;
-        margin-bottom: 10px;
-      }
-
-      p {
-        color: white;
-        margin: 5px 0;
-      }
-
-      button {
-        margin-top: 15px;
-        padding: 0.5rem 1rem;
-        background-color: #56c7ff;
-        border: none;
-        border-radius: 8px;
-        color: white;
-        cursor: pointer;
-        font-size: 1rem;
-
-        &:hover {
-          background-color: #0088cc;
-        }
-      }
-      .candidateImage {
-        display: block;       // makes the image a block element
-        margin: 0 auto 10px;  // centers horizontally and adds bottom margin
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-    
-      .congrats {
-        font-size: 1.5rem;
-        color: #ffdd00;
-        font-weight: bold;
-        margin-bottom: 10px;
-        animation: pop 2.5s ease-out;
-      }
-
-      @keyframes pop {
-        0% { transform: scale(0); opacity: 0; }
-        50% { transform: scale(1.3); opacity: 1; }
-        100% { transform: scale(1); opacity: 1; }
-      }
-    }
-  }
 }
 
-/* ----------------- Mobile / Tablet View ----------------- */
-@media (max-width: 768px) {
-  .hero {
-    height: auto;
-    padding: 2rem 1rem;
-  }
-
-  .overlay {
-    padding: 1.5rem;
-    border-radius: 10px;
-
-    h1 {
-      font-size: 2rem;
-    }
-
-    p {
-      font-size: 1rem;
-    }
-
-    input {
-      width: 100%;
-    }
-
-    .membersList {
-      max-height: 200px;
-    }
-
-    .popup {
-      .popupContent {
-        width: 90%;
-        padding: 20px;
-
-        h2 {
-          font-size: 1.5rem;
-        }
-
-        p {
-          font-size: 0.95rem;
-        }
-
-        .candidateImage {
-          width: 80px;
-          height: 80px;
-        }
-
-        .congrats {
-          font-size: 1.2rem;
-        }
-
-        button {
-          width: 100%;
-          font-size: 1rem;
-        }
-      }
-    }
-  }
-}
+/* ---------------- Popup (Referral Verification) ---------------- */
 .popup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(21, 19, 19, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -231,10 +103,12 @@
     color: #333;
     padding: 25px;
     border-radius: 12px;
-    width: 350px;
+    width: 380px;
+    max-width: 95%;
     text-align: center;
     position: relative;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    animation: popupFade 0.3s ease-in-out;
 
     h2 {
       margin-bottom: 10px;
@@ -248,15 +122,18 @@
       color: #555;
     }
 
+    /* Candidate Image */
     .candidateImage {
-      width: 100px;
-      height: 100px;
+      display: block;
+      margin: 0 auto 15px;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 15px;
       border: 3px solid #00aaff;
     }
 
+    /* Congrats Text */
     .congrats {
       font-size: 1.5rem;
       color: #ffcc00;
@@ -265,8 +142,27 @@
       animation: pop 0.6s ease-out;
     }
 
+    /* Referral Input */
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 15px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      text-align: center;
+      transition: border 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border: 1px solid #00aaff;
+        box-shadow: 0 0 4px rgba(0, 170, 255, 0.3);
+      }
+    }
+
+    /* Buttons */
     button {
-      margin-top: 15px;
+      margin-top: 10px;
       padding: 0.6rem 1.2rem;
       background-color: #00aaff;
       border: none;
@@ -279,18 +175,54 @@
       &:hover {
         background-color: #0088cc;
       }
-    }
 
-    @keyframes pop {
-      0% { transform: scale(0); opacity: 0; }
-      50% { transform: scale(1.3); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
+      &.closeBtn {
+        background-color: #ccc;
+        color: #333;
+
+        &:hover {
+          background-color: #999;
+        }
+      }
     }
   }
 }
 
-/* Mobile / Tablet */
+/* Animations */
+@keyframes popupFade {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pop {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ----------------- Mobile / Tablet View ----------------- */
 @media (max-width: 768px) {
+  .hero {
+    height: auto;
+    padding: 2rem 1rem;
+  }
+
+  .overlay {
+    padding: 1.5rem;
+    border-radius: 10px;
+
+    h1 { font-size: 2rem; }
+    p { font-size: 1rem; }
+    input { width: 100%; }
+    .membersList { max-height: 200px; }
+  }
+
   .popup {
     .popupContent {
       width: 90%;
@@ -300,41 +232,39 @@
       p { font-size: 0.95rem; }
       .candidateImage { width: 80px; height: 80px; }
       .congrats { font-size: 1.2rem; }
+      input { font-size: 0.9rem; }
       button { width: 100%; font-size: 1rem; }
     }
   }
 }
+
+/* ----------------- Branding & Fonts ----------------- */
 .heroLogo {
-  display: block;       // makes the image a block element
-  margin: 0 auto 20px;  // centers horizontally and adds bottom margin
+  display: block;
+  margin: 0 auto 20px;
   border-radius: 12px;
   object-fit: contain;
 }
 
-/* Apply Geist Sans as primary font and Geist Mono where needed */
 .hero, .overlay {
   font-family: var(--font-geist-sans), sans-serif;
 }
 
-/* Headings */
 .overlay h1, .popupContent h2 {
   font-family: var(--font-geist-sans), sans-serif;
   font-weight: 600;
 }
 
-/* Paragraphs */
 .overlay p, .popupContent p {
   font-family: var(--font-geist-sans), sans-serif;
   line-height: 1.6;
   font-weight: 400;
 }
 
-/* Buttons and Inputs */
 .overlay input, .overlay button, .popupContent button {
   font-family: var(--font-geist-sans), sans-serif;
 }
 
-/* Optional: use Geist Mono for special elements like code or IDs */
 .referralCode {
   font-family: var(--font-geist-mono), monospace;
 }

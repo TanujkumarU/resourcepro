@@ -33,7 +33,7 @@ const membersData: Member[] = [
   // Females
   { id: 11, name: "Anjali Reddy", email: "anjali@example.com", age: 24, degree: "B.Tech", branch: "CSE", image: "/candidates/anjali.jpg", referralBy: "Raghav Rao", referralId: "EMP011" },
   { id: 12, name: "Sowmya Naik", email: "sowmya@example.com", age: 25, degree: "M.Tech", branch: "IT", image: "/candidates/sowmya.jpg", referralBy: "Nikhil Shetty", referralId: "EMP012" },
-  { id: 13, name: "Ushaswi Pallem", email: "ushaswipallem@gmail.com", age: 23, degree: "B.Tech", branch: "EEE", image: "/candidates/priya.jpg", referralBy: "Tanuj_Kumar", referralId: "EMP613" },
+  { id: 13, name: "Ushaswi Pallem", email: "ushaswipallem@gmail.com", age: 23, degree: "B.Tech", branch: "EEE", image: "/ush.png", referralBy: "Tanuj_Kumar", referralId: "EMP613" },
   { id: 14, name: "Bhavya Raju", email: "bhavya@example.com", age: 27, degree: "M.Tech", branch: "CSE", image: "/candidates/bhavya.jpg", referralBy: "Sowmya Naik", referralId: "EMP014" },
   { id: 15, name: "Deepa Gowda", email: "deepa@example.com", age: 28, degree: "B.Tech", branch: "EEE", image: "/candidates/deepa.jpg", referralBy: "Lakshmi Rao", referralId: "EMP015" },
   { id: 16, name: "Shreya Shetty", email: "shreya@example.com", age: 26, degree: "M.Tech", branch: "IT", image: "/candidates/shreya.jpg", referralBy: "Varsha Gowda", referralId: "EMP016" },
@@ -48,14 +48,30 @@ export default function Hero() {
   const [filter, setFilter] = useState("");
   const [showCongrats, setShowCongrats] = useState(false);
 
+  // 🔑 New states for code verification
+  const [enteredCode, setEnteredCode] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
+
   const filteredMembers = membersData.filter((member) =>
     member.name.toLowerCase().includes(filter.toLowerCase())
   );
 
+  // When clicking member → show popup with code input first
   const handleOpenPopup = (member: Member) => {
     setSelectedMember(member);
-    setShowCongrats(true);
-    setTimeout(() => setShowCongrats(false), 2000);
+    setIsVerified(false); // reset verification
+    setEnteredCode("");   // reset code input
+  };
+
+  // Verify code (for simplicity: match referralId)
+  const handleVerifyCode = () => {
+    if (enteredCode === selectedMember?.referralId) {
+      setIsVerified(true);
+      setShowCongrats(true);
+      setTimeout(() => setShowCongrats(false), 2000);
+    } else {
+      alert("❌ Invalid code. Try again.");
+    }
   };
 
   return (
@@ -70,10 +86,9 @@ export default function Hero() {
           className={styles.heroLogo}
         />
 
-       
-    <h1>Welcome to ResourcePro</h1>
+        <h1>Welcome to ResourcePro</h1>
 
-    <input
+        <input
           type="text"
           placeholder="Filter members by name..."
           value={filter}
@@ -139,21 +154,39 @@ export default function Hero() {
                 <div className={styles.congrats}>🎉 Congratulations! 🎉</div>
               )}
 
-              <Image
-                src={selectedMember.image}
-                alt={selectedMember.name}
-                width={100}
-                height={100}
-                className={styles.candidateImage}
-              />
+              {/* Step 1: Ask for code before showing details */}
+              {!isVerified ? (
+                <>
+                  <h2>Enter Verification Code</h2>
+                  <input
+                    type="text"
+                    placeholder="Enter referral ID"
+                    value={enteredCode}
+                    onChange={(e) => setEnteredCode(e.target.value)}
+                  />
+                  <button onClick={handleVerifyCode}>Verify</button>
+                  <button onClick={() => setSelectedMember(null)}>Cancel</button>
+                </>
+              ) : (
+                <>
+                  {/* Step 2: Show member details after correct code */}
+                  <Image
+                    src={selectedMember.image}
+                    alt={selectedMember.name}
+                    width={100}
+                    height={100}
+                    className={styles.candidateImage}
+                  />
 
-              <h2>{selectedMember.name}</h2>
-              <p><strong>Email:</strong> {selectedMember.email}</p>
-              <p><strong>Age:</strong> {selectedMember.age}</p>
-              <p><strong>Degree:</strong> {selectedMember.degree}</p>
-              <p><strong>Branch:</strong> {selectedMember.branch}</p>
-              <p><strong>Referred by:</strong> {selectedMember.referralBy} (ID: {selectedMember.referralId})</p>
-              <button onClick={() => setSelectedMember(null)}>Close</button>
+                  <h2>{selectedMember.name}</h2>
+                  <p><strong>Email:</strong> {selectedMember.email}</p>
+                  <p><strong>Age:</strong> {selectedMember.age}</p>
+                  <p><strong>Degree:</strong> {selectedMember.degree}</p>
+                  <p><strong>Branch:</strong> {selectedMember.branch}</p>
+                  <p><strong>Referred by:</strong> {selectedMember.referralBy} (ID: {selectedMember.referralId})</p>
+                  <button onClick={() => setSelectedMember(null)}>Close</button>
+                </>
+              )}
             </div>
           </div>
         )}
